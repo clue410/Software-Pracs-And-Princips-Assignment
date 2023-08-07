@@ -2,13 +2,12 @@ package model;
 import javax.persistence.*;
 
 @Entity
-public class Product {
-
+public class Contact {
     @Id
     @GeneratedValue
     private long id;
-    private String productCategory;
     private String name;
-    private double price;
-
+    private String phone;
+    private String email;
+    private String position;
 }
