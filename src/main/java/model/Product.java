@@ -11,4 +11,9 @@ public class Product {
     private String name;
     private double price;
 
+    public Product() {
+    }
+
+    //getters, setters blah blah blah
+
 }
