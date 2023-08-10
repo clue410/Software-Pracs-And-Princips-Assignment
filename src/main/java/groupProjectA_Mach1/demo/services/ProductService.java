@@ -27,4 +27,19 @@ public class ProductService {
         }
         return null;
     }
+
+    public long createNewProduct(String category, String name, double price) {
+        Product product = new Product(category, name, price);
+        Product savedProduct = productRepository.save(product);
+        return savedProduct.getId();
+    }
+
+    public void updateProduct(Long id, String productCategory, String name, double price) {
+        Optional<Product> productOptional = productRepository.findById(id);
+        Product product = productOptional.get();
+        product.setProductCategory(productCategory);
+        product.setName(name);
+        product.setPrice(price);
+        productRepository.save(product);
+    }
 }

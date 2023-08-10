@@ -9,7 +9,6 @@ public class ProductDetail {
     @Id
     @GeneratedValue
     private long id;
-
     private String description;
     private String comment;
 }

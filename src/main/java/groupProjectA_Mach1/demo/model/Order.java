@@ -4,9 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "orders")
 public class Order {
-
     @Id
     @GeneratedValue
     private long id;
