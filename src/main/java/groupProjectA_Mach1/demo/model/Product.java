@@ -1,18 +1,21 @@
 package groupProjectA_Mach1.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Product {
 
     @Id
     @GeneratedValue
+//    @Column(name = "id")
     private long id;
     private String productCategory;
     private String name;
     private double price;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private ProductDetail productDetails;
 
     public Product() {
     }
@@ -53,5 +56,13 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public ProductDetail getProductDetails() {
+        return productDetails;
+    }
+
+    public void setProductDetails(ProductDetail productDetails) {
+        this.productDetails = productDetails;
     }
 }

@@ -42,4 +42,8 @@ public class ProductService {
         product.setPrice(price);
         productRepository.save(product);
     }
+
+    public void save(Product product) {
+        productRepository.save(product);
+    }
 }

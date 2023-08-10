@@ -1,6 +1,7 @@
 package groupProjectA_Mach1.demo.controller;
 
 import groupProjectA_Mach1.demo.model.Product;
+import groupProjectA_Mach1.demo.model.ProductDetail;
 import groupProjectA_Mach1.demo.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,8 +46,17 @@ public class ProductController {
     }
 
     @PostMapping("/product/{id}/detail")
-    void createProductDetail(@PathVariable Long id) {
-        throw new RuntimeException("Not implemented");
+    void createProductDetail(@PathVariable Long id, @RequestBody FormBackingProductDetail productDetailForm) {
+        Product product = productService.getById(id);
+        ProductDetail productDetails = product.getProductDetails();
+        if (productDetails != null) {
+            //details already exist? update details instead
+            System.out.println("womp womp details already exist");
+        } else {
+            ProductDetail productDetail = new ProductDetail(id, productDetailForm.description, productDetailForm.comment);
+            product.setProductDetails(productDetail);
+            productService.save(product);
+        }
     }
 
     @PutMapping("/product/{id}/detail")
@@ -99,12 +109,33 @@ public class ProductController {
         }
     }
 
-    /*
+    private static class FormBackingProductDetail {
 
-    {
-     "productCategory": "food",
-     "name": "milk",
-     "price": 3.40
-}
-     */
+        private String description;
+        private String comment;
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getComment() {
+            return comment;
+        }
+
+        public void setComment(String comment) {
+            this.comment = comment;
+        }
+
+        @Override
+        public String toString() {
+            return "FormBackingProductDetail{" +
+                    "description='" + description + '\'' +
+                    ", comment='" + comment + '\'' +
+                    '}';
+        }
+    }
 }
