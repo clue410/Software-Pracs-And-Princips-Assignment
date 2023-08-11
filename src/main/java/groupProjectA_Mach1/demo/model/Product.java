@@ -2,16 +2,18 @@ package groupProjectA_Mach1.demo.model;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "productEntity")
 public class Product {
-
     @Id
     @GeneratedValue
-//    @Column(name = "id")
+//    @Column(name = "prodID")
     private long id;
     private String productCategory;
     private String name;
     private double price;
+
+//    @ManyToMany(mappedBy = "product")
+//    public Set<Order> order;
 
     @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
