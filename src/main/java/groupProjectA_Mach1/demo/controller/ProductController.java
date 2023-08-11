@@ -19,17 +19,19 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    long createProduct(@RequestBody FormBackingProduct productForm) {
+    ResponseEntity<String> createProduct(@RequestBody FormBackingProduct productForm) {
         System.out.println(productForm);
-        return productService.createNewProduct(productForm.productCategory, productForm.name, productForm.price);
+        productService.createNewProduct(productForm.productCategory, productForm.name, productForm.price);
+        return new ResponseEntity<>("new product created : " + productForm.name, HttpStatus.OK);
     }
 
     @PutMapping("/product/{id}")
     ResponseEntity<String> updateProduct(@PathVariable Long id, @RequestBody FormBackingProduct productForm) {
         Product product = productService.getById(id);
         if (product != null) {
+            String oldName = product.getName();
             productService.updateProduct(id, productForm.productCategory, productForm.name, productForm.price);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("updated product:" + oldName + " --> " + productForm.name, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -46,27 +48,42 @@ public class ProductController {
     }
 
     @PostMapping("/product/{id}/detail")
-    void createProductDetail(@PathVariable Long id, @RequestBody FormBackingProductDetail productDetailForm) {
+    ResponseEntity<String> createProductDetail(@PathVariable Long id, @RequestBody FormBackingProductDetail productDetailForm) {
         Product product = productService.getById(id);
         ProductDetail productDetails = product.getProductDetails();
         if (productDetails != null) {
-            //details already exist? update details instead
-            System.out.println("womp womp details already exist");
+            return new ResponseEntity<>("Product " + product.getName() + "(" + product.getId() + ")" + " already has created details", HttpStatus.BAD_REQUEST);
         } else {
             ProductDetail productDetail = new ProductDetail(id, productDetailForm.description, productDetailForm.comment);
             product.setProductDetails(productDetail);
             productService.save(product);
+            return new ResponseEntity<>("Product details created for " + product.getName() + "(" + product.getId() + ")", HttpStatus.OK);
         }
     }
 
     @PutMapping("/product/{id}/detail")
-    void updateProductDetail(@PathVariable Long id) {
-        throw new RuntimeException("Not implemented");
+    ResponseEntity<String> updateProductDetail(@PathVariable Long id, @RequestBody FormBackingProductDetail productDetailForm) {
+        Product product = productService.getById(id);
+        ProductDetail productDetails = product.getProductDetails();
+        if (productDetails != null) {
+            productService.updateProductDetails(id, productDetailForm.description, productDetailForm.comment);
+            productService.save(product);
+            return new ResponseEntity<>(HttpStatus.OK);
+
+        } else {
+            return new ResponseEntity<>("Product " + product.getName() + "(" + product.getId() + ")" + " does not have details to update", HttpStatus.BAD_REQUEST);
+        }
     }
 
+
     @GetMapping("/product/{id}/detail")
-    void getProductDetail(@PathVariable Long id) {
-        throw new RuntimeException("Not implemented");
+    ResponseEntity<Product> getProductDetail(@PathVariable Long id) {
+        Product product = productService.getById(id);
+        if (product.getProductDetails() != null) {
+            return new ResponseEntity<Product>(product, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Product>(product, HttpStatus.BAD_REQUEST);
+        }
     }
 
 

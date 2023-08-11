@@ -1,10 +1,10 @@
 package groupProjectA_Mach1.demo.services;
 
 import groupProjectA_Mach1.demo.model.Product;
+import groupProjectA_Mach1.demo.model.ProductDetail;
 import groupProjectA_Mach1.demo.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,10 +14,6 @@ public class ProductService {
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-    }
-
-    List<Product> findProductsByBlah() {
-        return productRepository.findAll();//todo real stuff
     }
 
     public Product getById(Long id) {
@@ -40,6 +36,16 @@ public class ProductService {
         product.setProductCategory(productCategory);
         product.setName(name);
         product.setPrice(price);
+        productRepository.save(product);
+    }
+
+    public void updateProductDetails(Long id, String description, String comment) {
+        Optional<Product> productOptional = productRepository.findById(id);
+        Product product = productOptional.get();
+        ProductDetail productDetails = productOptional.get().getProductDetails();
+        productDetails.setId(id);
+        productDetails.setDescription(description);
+        productDetails.setComment(comment);
         productRepository.save(product);
     }
 

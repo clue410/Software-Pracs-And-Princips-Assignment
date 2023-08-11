@@ -6,7 +6,6 @@ import javax.persistence.Id;
 @Entity
 public class ProductDetail {
     @Id
-//    @Column(name = "product id")
     private long id;
     private String description;
     private String comment;
