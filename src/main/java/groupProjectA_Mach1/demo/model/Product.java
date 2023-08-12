@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity(name = "productEntity")
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @Column(name = "prodID")
     private long id;
     private String productCategory;
