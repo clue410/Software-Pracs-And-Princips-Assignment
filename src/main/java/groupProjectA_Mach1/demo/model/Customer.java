@@ -21,14 +21,12 @@ public class Customer {
     }
 
     public Customer(String companyName, String address, String country) {
-        this.id = id;
         this.address = address;
         this.companyName = companyName;
         this.country = country;
     }
 
     public Customer(String companyName, String address, String country, Contact contact) {
-        this.id = id;
         this.address = address;
         this.companyName = companyName;
         this.country = country;

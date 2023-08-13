@@ -28,9 +28,9 @@ public class CustomerService {
     }
 
     //creating customer
-    public long createCustomer(String companyName, String address, String country, Contact contact) {
+    public long createCustomer(String companyName, String address, String country) {
 
-        Customer cus = new Customer(companyName, address, country, contact);
+        Customer cus = new Customer(companyName, address, country);
 
         cusRepo.save(cus);
 

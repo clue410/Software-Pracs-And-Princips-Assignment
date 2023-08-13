@@ -21,8 +21,8 @@ public class CustomerController {
     @PostMapping("/customer")
     ResponseEntity<String> createCustomer(@RequestBody FormBackingCustomer customerForm) {
         System.out.println(customerForm);
-        cusService.createCustomer(customerForm.companyName, customerForm.address, customerForm.country, customerForm.contact);
-        return new ResponseEntity<>("new customer created : " + customerForm.contact.getName(), HttpStatus.OK);
+        cusService.createCustomer(customerForm.companyName, customerForm.address, customerForm.country);
+        return new ResponseEntity<>("new customer created : ", HttpStatus.OK);
     }
 
     @PutMapping("/customer/{id}")
