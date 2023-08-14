@@ -1,0 +1,62 @@
+Make a product :
+curl --location 'http://localhost:8080/product' \
+--header 'Content-Type: application/json' \
+--data '{
+     "productCategory": "",
+     "name": "",
+     "price":
+}'
+
+Find a product :
+curl --location 'http://localhost:8080/product/ID'
+
+Create product details :
+curl --location 'http://localhost:8080/product/ID/detail' \
+--header 'Content-Type: application/json' \
+--data '{
+     "description": "",
+     "comment": ""
+}'
+
+Update product details :
+curl --location --request PUT 'http://localhost:8080/product/ID/detail' \
+--header 'Content-Type: application/json' \
+--data '{
+    "description": "",
+    "comment": ""
+}'
+
+Create an order :
+curl --location 'http://localhost:8080/order' \
+--header 'Content-Type: text/plain' \
+--data '{
+    "supplier" : ""
+}'
+
+Add product to order :
+curl --location --request PUT 'http://localhost:8080/order/ID' \
+--header 'Content-Type: application/json' \
+--data '{
+    "productId" : ,
+    "supplier" : "",
+    "quantity" :
+    }'
+
+    Create customer
+    curl --location 'http://localhost:8080/customer' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "companyName" : "",
+        "address" : "",
+        "country" : ""
+    }'
+
+    Add contact to Customer:
+    curl --location 'http://localhost:8080/customer/ID/contact' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "name" : "",
+        "phone" : "",
+        "email" : "",
+        "position" : ""
+    }'
