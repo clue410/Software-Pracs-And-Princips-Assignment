@@ -1,9 +1,14 @@
+
 package groupProjectA_Mach1.demo.services;
 
-import com.example.demo.model.Order;
-import com.example.demo.model.Product;
-import com.example.demo.repository.OrderRepository;
+import groupProjectA_Mach1.demo.model.Order;
+import groupProjectA_Mach1.demo.model.Product;
+import groupProjectA_Mach1.demo.repository.OrderRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Set;
 
 @Service
 public class OrderService {
@@ -15,7 +20,7 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    //finding order
+    //find order by id
     public Order findOrderById(Long id) {
         if(orderRepository.existsById(id)) {
             return  orderRepository.findById(id).get();
@@ -25,19 +30,19 @@ public class OrderService {
         }
     }
 
-    //creating order
-    public long createNewOrder(String supplier, Product product, int quantity) {
-        Order order = new Order(supplier, product, quantity);
+    //create new order
+    public Order createNewOrder(Order order) {
         Order newOrder = orderRepository.save(order);
-        return newOrder.getId();
+        return newOrder;
     }
 
-    //updating order
-    public void updateOrder(long id, String supplier, Product product, int quantity) {
+    //update order
+    public Order updateOrder(Long id, Order order) {
         Order currentOrder = orderRepository.findById(id).get();
-        currentOrder.setSupplier(supplier);
-        currentOrder.setProduct(product);
-        currentOrder.setQuantity(quantity);
-        orderRepository.save(currentOrder);
+        currentOrder.setSupplier(order.getSupplier());
+        currentOrder.setQuantity(order.getQuantity());
+        currentOrder.setProduct(order.getProduct());
+        return orderRepository.save(currentOrder);
     }
 }
+
