@@ -1,33 +1,25 @@
 package groupProjectA_Mach1.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+import java.util.Set;
 
+@Entity(name = "orderEntity")
 public class Order {
+
     @Id
     @GeneratedValue
-    public long id;
-    public String supplier;
-    @ManyToMany(cascade=CascadeType.PERSIST)
-    @JoinColumn(name = "product_id")
-    @JsonIgnore
-    public Product product;
-    public int quantity;
+    private long id;
+    private String supplier;
 
-    public Order(){ }
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn (name = "order_id")
+    private Set<Product> product;
+    private int quantity;
 
-    public Order(long id,
-                 String supplier,
-                 Product product,
-                 int quantity) {
-        this.id = id;
-        this.supplier = supplier;
-        this.product = product;
-        this.quantity = quantity;
-    }
+    public Order() { }
 
     public Order(String supplier,
-                 Product product,
+                 Set<Product> product,
                  int quantity) {
         this.supplier = supplier;
         this.product = product;
@@ -42,31 +34,27 @@ public class Order {
         return supplier;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
+    public Set<Product> getProduct() { return product; }
+
     public void setSupplier(String supplier) {
         this.supplier = supplier;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
+    public void setProduct(Set<Product> product) { this.product = product; }
+
     @Override
     public String toString() {
         return "Order{" +
                 "supplier='" + supplier + '\'' +
-                ", product=" + product +
+               ", product=" + product +
                 ", quantity=" + quantity +
                 '}';
     }
