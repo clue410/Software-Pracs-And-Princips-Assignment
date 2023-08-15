@@ -1,7 +1,9 @@
+
 package groupProjectA_Mach1.demo.controller;
 
-import com.example.demo.model.Order;
-import com.example.demo.service.OrderService;
+import groupProjectA_Mach1.demo.model.Order;
+import groupProjectA_Mach1.demo.services.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,28 +13,31 @@ public class OrderController {
     private final OrderService orderService;
 
     //constructor
+    @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
 
     //create new order
     @PostMapping("/order")
-    public ResponseEntity createNewOrder(@RequestBody Order order) {
-        //return orderService.createNewOrder(order.supplier, order.product, order.quantity);
-        orderService.createNewOrder(order.supplier, order.product, order.quantity);
-        return ResponseEntity.ok("Order Created!");
+    Order createNewOrder(@RequestBody Order order) {
+        Order newOrder = orderService.createNewOrder(order);
+        return newOrder;
+       // return ResponseEntity.ok("Order Created!");
     }
 
     //update order
     @PutMapping("/order/{id}")
-    public ResponseEntity updateOrder(@PathVariable Long id, @RequestBody Order currentOrder) {
-        Order order = null;
+    Order updateOrderDetails(@PathVariable Long id, @RequestBody Order order) {
+        Order currentOrder = null;
         if (orderService.findOrderById(id) == null) {
-            return ResponseEntity.ok("Order Not Found!");
-        } 
-        else {
-            orderService.updateOrder(id, order.supplier, order.product, order.quantity);
-            return ResponseEntity.ok("Order Updated!");
+            System.out.println("Order Not Found!");
+            //return ResponseEntity.ok("Order Not Found!");
         }
+        else {
+            currentOrder = orderService.updateOrder(id, order);
+            //return ResponseEntity.ok("Order Updated!");
+        }
+        return currentOrder;
     }
 }
