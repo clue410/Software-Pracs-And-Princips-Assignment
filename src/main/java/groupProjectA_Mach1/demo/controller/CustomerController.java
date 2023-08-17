@@ -22,20 +22,21 @@ public class CustomerController {
     ResponseEntity<String> createCustomer(@RequestBody FormBackingCustomer customerForm) {
         System.out.println(customerForm);
         cusService.createCustomer(customerForm.companyName, customerForm.address, customerForm.country);
-        return new ResponseEntity<>("new customer created : ", HttpStatus.OK);
+        return new ResponseEntity<>("new customer created -->  company Name:" + customerForm.companyName + ",address: " + customerForm.address + ",country: " + customerForm.country, HttpStatus.OK);
     }
 
     @PutMapping("/customer/{id}")
     ResponseEntity<String> updateCustomer(@PathVariable Long id, @RequestBody FormBackingCustomer customerForm) {
         Customer customer = cusService.findCus(id);
         if (customer != null) {
-            //  String oldName = customer.getName();
+            String oldName = customer.getCompanyName();
             cusService.updateCustomer(id, customerForm.companyName, customerForm.address, customerForm.country);
-            return new ResponseEntity<>("updated customer:" + " --> " + customerForm.contact.getName(), HttpStatus.OK);
+            return new ResponseEntity<>("updated customer:" + oldName + " --> " + customerForm.companyName + ",address: " + customerForm.address + ",country: " + customerForm.country, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
     @GetMapping("/customer/{id}")
     ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
@@ -57,9 +58,10 @@ public class CustomerController {
             Contact con = new Contact(id, contactForm.name, contactForm.phone, contactForm.email, contactForm.position);
             customer.setContact(con);
             cusService.save(customer);
-            return new ResponseEntity<>("Contact created for " + con.getName() + "(" + customer.getId() + ")", HttpStatus.OK);
+            return new ResponseEntity<>("Contact created for " + con.getName() + "(" + customer.getId() + ") --> phone: " + contactForm.phone + ",email: " + contactForm.email + ",position: " + contactForm.position, HttpStatus.OK);
         }
     }
+
 
     @PutMapping("/customer/{id}/contact")
     ResponseEntity<String> updateContactDetail(@PathVariable Long id, @RequestBody FormBackingContact contactForm) {
@@ -68,7 +70,7 @@ public class CustomerController {
         if (contact != null) {
             cusService.updateContact(id, contactForm.name, contactForm.phone, contactForm.email, contactForm.position);
             cusService.save(customer);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("Contact updated -->" + "updated name:" + contactForm.name + ",phone: " + contactForm.phone + ",email: " + contactForm.email + ",position: " + contactForm.position, HttpStatus.OK);
 
         } else {
             return new ResponseEntity<>("Customer does not have details to update", HttpStatus.BAD_REQUEST);

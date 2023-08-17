@@ -34,7 +34,7 @@ public class OrderController {
         String supplier = formBackingOrderUpdate.supplier;
         orderService.createNewOrder(supplier);
 //        orderService.createNewOrder(order.supplier,product.getId(), order.quantity);
-        return ResponseEntity.ok("New empty Order Created!");
+        return ResponseEntity.ok("New order created --> supplier:" + supplier);
     }
 
     //    update order
@@ -47,7 +47,7 @@ public class OrderController {
             String supplier = formBackingOrderUpdate.supplier;
             int quantity = formBackingOrderUpdate.quantity;
             orderService.updateOrder(orderId, productId, supplier, quantity);
-            return new ResponseEntity<>("Product added to order " + orderId, HttpStatus.OK);
+            return new ResponseEntity<>("Product added to order(" + orderId + ")" + "productId: " + productId + ", supplier: " + supplier + ", quantity: " + quantity, HttpStatus.OK);
 
         }
     }

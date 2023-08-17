@@ -22,7 +22,7 @@ public class ProductController {
     ResponseEntity<String> createProduct(@RequestBody FormBackingProduct productForm) {
         System.out.println(productForm);
         productService.createNewProduct(productForm.productCategory, productForm.name, productForm.price);
-        return new ResponseEntity<>("new product created : " + productForm.name, HttpStatus.OK);
+        return new ResponseEntity<>("new product created --> category: " + productForm.productCategory + ", name: " + productForm.productCategory + ", price: " + productForm.price, HttpStatus.OK);
     }
 
     @PutMapping("/product/{id}")
@@ -31,7 +31,7 @@ public class ProductController {
         if (product != null) {
             String oldName = product.getName();
             productService.updateProduct(id, productForm.productCategory, productForm.name, productForm.price);
-            return new ResponseEntity<>("updated product:" + oldName + " --> " + productForm.name, HttpStatus.OK);
+            return new ResponseEntity<>("updated product:" + oldName + " --> " + productForm.name + "|" + "category: " + productForm.productCategory + ", name: " + productForm.productCategory + ", price: " + productForm.price, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -57,7 +57,7 @@ public class ProductController {
             ProductDetail productDetail = new ProductDetail(id, productDetailForm.description, productDetailForm.comment);
             product.setProductDetails(productDetail);
             productService.save(product);
-            return new ResponseEntity<>("Product details created for " + product.getName() + "(" + product.getId() + ")", HttpStatus.OK);
+            return new ResponseEntity<>("Product details created for " + product.getName() + "(" + product.getId() + ") | description: " + productDetailForm.description + ", comment: " + productDetailForm.comment, HttpStatus.OK);
         }
     }
 
@@ -68,7 +68,7 @@ public class ProductController {
         if (productDetails != null) {
             productService.updateProductDetails(id, productDetailForm.description, productDetailForm.comment);
             productService.save(product);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("Updated Product details --> description: " + productDetailForm.description + ", comment: " + productDetailForm.comment, HttpStatus.OK);
 
         } else {
             return new ResponseEntity<>("Product " + product.getName() + "(" + product.getId() + ")" + " does not have details to update", HttpStatus.BAD_REQUEST);
