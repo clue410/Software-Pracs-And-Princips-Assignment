@@ -22,7 +22,7 @@ public class ProductController {
     ResponseEntity<String> createProduct(@RequestBody FormBackingProduct productForm) {
         System.out.println(productForm);
         productService.createNewProduct(productForm.productCategory, productForm.name, productForm.price);
-        return new ResponseEntity<>("new product created --> category: " + productForm.productCategory + ", name: " + productForm.productCategory + ", price: " + productForm.price, HttpStatus.OK);
+        return new ResponseEntity<>("new product created --> category: " + productForm.productCategory + ", name: " + productForm.name + ", price: " + productForm.price, HttpStatus.OK);
     }
 
     @PutMapping("/product/{id}")

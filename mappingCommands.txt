@@ -145,3 +145,10 @@ curl --location --request PUT 'http://localhost:8080/order/1' \
 
 
 
+curl --location --request PUT 'http://localhost:8080/customer/1/contact'\
+--header 'Content-Type: application/json' \
+--data-raw '{
+"companyName" : "SmallCompany inc",
+"address" : "333 Business Avenue VIC",
+"country" : "Australia"
+}'
