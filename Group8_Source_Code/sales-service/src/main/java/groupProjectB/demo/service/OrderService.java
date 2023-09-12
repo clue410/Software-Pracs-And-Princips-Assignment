@@ -54,16 +54,5 @@ public class OrderService {
 
         orderRepository.save(currentOrder);
     }
-
-//    public List<Order> findCustomerOrders(Long cusId) {
-//        String url = "http://localhost:8082/order/";
-//        List<Order> orders = new ArrayList<>();
-//        List<Long> orderIds = orderRepository.findById(cusId).orElseThrow(RuntimeException::new).getOrders();
-//
-//        for (Long id : orderIds) {
-//            orders.add(restTemplate.getForObject(url + id, Order.class));
-//        }
-//        return orders;
-//    }
 }
 
