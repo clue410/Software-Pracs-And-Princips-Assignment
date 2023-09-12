@@ -3,7 +3,6 @@ package groupProjectA_Mach1.demo.model;
 import javax.persistence.*;
 
 @Entity
-//@Component
 public class Customer {
 
     @Id
@@ -74,7 +73,4 @@ public class Customer {
         this.country = country;
     }
 
-    public void print() {
-        System.out.println("gijntjgntrng");
-    }
 }

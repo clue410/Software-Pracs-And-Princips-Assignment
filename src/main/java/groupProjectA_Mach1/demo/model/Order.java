@@ -31,15 +31,6 @@ public class Order {
 
     }
 
-//    public Order(String supplier,
-////                 long productId,
-//                 int quantity) {
-//        this.supplier = supplier;
-////        this.product = product;
-//        this.quantity = quantity;
-//    }
-
-
     public long getId() {
         return id;
     }

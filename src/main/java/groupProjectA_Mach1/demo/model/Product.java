@@ -1,22 +1,21 @@
 package groupProjectA_Mach1.demo.model;
 
+import org.springframework.data.domain.AbstractAggregateRoot;
+
 import javax.persistence.*;
 
 @Entity(name = "productEntity")
-public class Product {
+public class Product extends AbstractAggregateRoot<Product> { //Aggregate Root
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "prodID")
     private long id;
     private String productCategory;
     private String name;
     private double price;
 
-//    @ManyToMany(mappedBy = "product")
-//    public Set<Order> order;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    //    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
+    @Embedded
     private ProductDetail productDetails;
 
     public Product() {
@@ -68,3 +67,4 @@ public class Product {
         this.productDetails = productDetails;
     }
 }
+

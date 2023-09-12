@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 public class ProductController {
 
@@ -36,6 +39,20 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/products")
+    List<Product> allProductsAndDetails() {
+        return productService.getAllProducts()
+                .stream()
+                .map(product -> {
+                    Product product1 = new Product();
+                    product1.setName(product.getName());
+                    product1.setProductCategory(product.getProductCategory());
+                    product1.setProductDetails(product.getProductDetails());
+                    product1.setPrice(product.getPrice());
+                    product1.setId(product.getId());
+                    return product1;
+                }).collect(Collectors.toList());
+    }
 
     @GetMapping("/product/{id}")
     ResponseEntity<Product> getProduct(@PathVariable Long id) {
@@ -47,29 +64,25 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/product/{id}/detail")
-    ResponseEntity<String> createProductDetail(@PathVariable Long id, @RequestBody FormBackingProductDetail productDetailForm) {
-        Product product = productService.getById(id);
-        ProductDetail productDetails = product.getProductDetails();
-        if (productDetails != null) {
+    @PostMapping("/product/{productId}/detail")
+    ResponseEntity<String> createProductDetail(@PathVariable Long productId, @RequestBody FormBackingProductDetail productDetailForm) {
+        Product product = productService.getById(productId);
+        if (product.getProductDetails() != null) {
             return new ResponseEntity<>("Product " + product.getName() + "(" + product.getId() + ")" + " already has created details", HttpStatus.BAD_REQUEST);
         } else {
-            ProductDetail productDetail = new ProductDetail(id, productDetailForm.description, productDetailForm.comment);
+            ProductDetail productDetail = new ProductDetail(productId, productDetailForm.comment, productDetailForm.description);
             product.setProductDetails(productDetail);
             productService.save(product);
             return new ResponseEntity<>("Product details created for " + product.getName() + "(" + product.getId() + ") | description: " + productDetailForm.description + ", comment: " + productDetailForm.comment, HttpStatus.OK);
         }
     }
 
-    @PutMapping("/product/{id}/detail")
-    ResponseEntity<String> updateProductDetail(@PathVariable Long id, @RequestBody FormBackingProductDetail productDetailForm) {
-        Product product = productService.getById(id);
-        ProductDetail productDetails = product.getProductDetails();
-        if (productDetails != null) {
-            productService.updateProductDetails(id, productDetailForm.description, productDetailForm.comment);
-            productService.save(product);
+    @PutMapping("/product/{productId}/detail")
+    ResponseEntity<String> updateProductDetail(@PathVariable Long productId, @RequestBody FormBackingProductDetail productDetailForm) {
+        Product product = productService.getById(productId);
+        if (product.getProductDetails() != null) {
+            productService.updateProductDetails(productId, productDetailForm.comment, productDetailForm.description);
             return new ResponseEntity<>("Updated Product details --> description: " + productDetailForm.description + ", comment: " + productDetailForm.comment, HttpStatus.OK);
-
         } else {
             return new ResponseEntity<>("Product " + product.getName() + "(" + product.getId() + ")" + " does not have details to update", HttpStatus.BAD_REQUEST);
         }

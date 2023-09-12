@@ -128,16 +128,6 @@ public class CustomerController {
             this.country = country;
         }
 
-        // @Override
-        // public String toString() {
-        //     return "ProductForm{" +
-        //             "productCategory='" + productCategory + '\'' +
-        //             ", name='" + name + '\'' +
-        //             ", price=" + price +
-        //             '}';
-        // }
-
-
     }
 
     private static class FormBackingContact {
@@ -188,13 +178,6 @@ public class CustomerController {
             this.position = position;
         }
 
-        // @Override
-        // public String toString() {
-        //     return "FormBackingProductDetail{" +
-        //             "description='" + description + '\'' +
-        //             ", comment='" + comment + '\'' +
-        //             '}';
-        // }
     }
 
 

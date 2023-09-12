@@ -21,14 +21,6 @@ public class OrderController {
         this.productService = productService;
     }
 
-    //create new order
-//    @PostMapping("/order")
-//    public ResponseEntity createNewOrder(@RequestBody Ordr ordr) {
-//        //return orderService.createNewOrder(order.supplier, order.product, order.quantity);
-//        ORDRService.createNewOrder(ordr.supplier, ordr.product, ordr.quantity);
-//        return ResponseEntity.ok("Order Created!");
-//    }
-
     @PostMapping("/order")
     public ResponseEntity createNewOrder(@RequestBody FormBackingOrderUpdate formBackingOrderUpdate) {
         String supplier = formBackingOrderUpdate.supplier;
@@ -51,18 +43,6 @@ public class OrderController {
 
         }
     }
-//    @PutMapping("/order/{orderId}")
-//    public ResponseEntity<String> addProductToOrder(@PathVariable Long orderId, @RequestBody FormBackingOrderUpdate formBackingOrderUpdate) {
-//        if (orderService.findOrderById(orderId) == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } else {
-//            long productId = formBackingOrderUpdate.productId;
-//            int quantity = formBackingOrderUpdate.quantity;
-//            orderService.updateOrder(orderId,, quantity);
-//            return new ResponseEntity<>("Product added to order " +orderId, HttpStatus.OK);
-//
-//        }
-//    }
 
     private static class FormBackingOrderUpdate {
         private long productId;

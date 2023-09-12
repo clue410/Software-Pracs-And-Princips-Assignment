@@ -4,10 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-//@Component
 public class Contact {
     @Id
-//    @GeneratedValue
 
     private long id;
     private String name;

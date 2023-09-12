@@ -24,24 +24,11 @@ public class OrderService {
             return null;
         }
     }
-
-    //creating order
-//    public long createNewOrder(String supplier, long productId, int quantity) {
-//        Product product = productService.getById(productId);
-//        Order order = new Order(supplier, id, quantity);
-////        Order order = new Order(supplier,product.getId(), quantity);
-//        Order newOrder = orderRepository.save(order);
-//        return newOrder.getId();
-//    }
-
     public long createNewOrder(String supplier) {
         Order createdEmptyOrder = new Order(supplier);
         orderRepository.save(createdEmptyOrder);
         return createdEmptyOrder.getId();
     }
-
-    ;
-
     //updating order
     public void updateOrder(long id, long productId, String supplier, int quantity) {
         Order currentOrder = orderRepository.findById(id).get();
@@ -50,10 +37,6 @@ public class OrderService {
         currentOrder.setQuantity(quantity);
         orderRepository.save(currentOrder);
     }
-//    public void addProductToOrder(long id,long productId, int quantity) {
-//        Order currentOrder = orderRepository.findById(id).get();
-//        currentOrder.setQuantity(quantity);
-//        orderRepository.save(currentOrder);
-//    }
+
 }
 
