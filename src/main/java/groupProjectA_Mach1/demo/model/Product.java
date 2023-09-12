@@ -3,6 +3,7 @@ package groupProjectA_Mach1.demo.model;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Entity(name = "productEntity")
 public class Product extends AbstractAggregateRoot<Product> { //Aggregate Root
@@ -17,6 +18,7 @@ public class Product extends AbstractAggregateRoot<Product> { //Aggregate Root
     @PrimaryKeyJoinColumn
     @Embedded
     private ProductDetail productDetails;
+
 
     public Product() {
     }
@@ -66,5 +68,12 @@ public class Product extends AbstractAggregateRoot<Product> { //Aggregate Root
     public void setProductDetails(ProductDetail productDetails) {
         this.productDetails = productDetails;
     }
+//    public double compareTo(Product p) {
+//        if (this.price != p.getPrice()) {
+//            return this.price - p.getPrice();
+//        }
+//        return this.name.compareTo(p.getName());
+//    }
+
 }
 

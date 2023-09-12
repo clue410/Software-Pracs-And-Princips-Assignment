@@ -14,6 +14,7 @@ public class ProductDetailEventPublisher {
         System.out.println("Product Detail Event Published!");
         ProductDetailEvent productDetailEvent = new ProductDetailEvent(this, message);
         productDetailEventPublisher.publishProductDetailEvent("Message Message woohoo");
+        System.out.println("RAHHH Product Detail Event Publisher");
     }
 
 }

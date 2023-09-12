@@ -1,5 +1,6 @@
 package groupProjectA_Mach1.demo.controller;
 
+import groupProjectA_Mach1.demo.ProductEvent.ProductDetailEvent;
 import groupProjectA_Mach1.demo.model.Product;
 import groupProjectA_Mach1.demo.model.ProductDetail;
 import groupProjectA_Mach1.demo.services.ProductService;
@@ -98,6 +99,13 @@ public class ProductController {
             return new ResponseEntity<Product>(product, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/products/sort")
+    void sortByPriceEVENT() {
+        ProductDetailEvent productDetailEvent = new ProductDetailEvent(this, "woogoo");
+        productDetailEvent.eventSortByPriceAsc();
+    }
+
 
 
     private static class FormBackingProduct {
