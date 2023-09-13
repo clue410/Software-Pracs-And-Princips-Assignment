@@ -166,7 +166,7 @@ curl --location 'http://localhost:8080/customer/1'
 ### Use Case 14 - Get All Products and their Details:
 ##### _Windows:_
 ```shell
-curl -X GET http://localhost:8081/product
+curl -X GET http://localhost:8081/products
 ```
 ##### _MacOS/Linux:_
 ```shell
@@ -226,7 +226,7 @@ curl --location 'http://localhost:8082/order/1'
 ### Use Case 19 - Get All Products Sorted By Price:
 ##### _Windows:_
 ```shell
-
+curl -X GET http://localhost:8081/products/sort
 ```
 ##### _MacOS/Linux:_
 ```shell
