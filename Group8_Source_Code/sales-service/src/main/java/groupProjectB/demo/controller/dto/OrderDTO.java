@@ -1,9 +1,10 @@
 package groupProjectB.demo.controller.dto;
 
 public class OrderDTO {
-    private Long productId;
+    private long productId;
     private String supplier;
     private int quantity;
+    private String status;
 
     public String getSupplier() {
         return supplier;
@@ -29,11 +30,20 @@ public class OrderDTO {
         this.quantity = quantity;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "FormBackingOrderUpdate{" +
+        return "OrderDTO{" +
+                "status='" + status + '\'' +
                 ", supplier='" + supplier + '\'' +
-                ", product id=" + productId +
+                ", product id=" + productId + '\'' +
                 ", quantity=" + quantity +
                 '}';
     }
