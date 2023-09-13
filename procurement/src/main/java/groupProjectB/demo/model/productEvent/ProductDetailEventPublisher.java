@@ -1,4 +1,4 @@
-package groupProjectB.demo.productEvent;
+package groupProjectB.demo.model.productEvent;
 //
 //public class ProductDetailEventPublisher {
 //}

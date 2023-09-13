@@ -1,5 +1,5 @@
 package groupProjectB.demo.service.Listener;
-import groupProjectB.demo.productEvent.ProductDetailEvent;
+import groupProjectB.demo.model.productEvent.ProductDetailEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 

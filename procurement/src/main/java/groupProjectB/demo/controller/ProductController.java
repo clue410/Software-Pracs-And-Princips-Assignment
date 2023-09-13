@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import groupProjectB.demo.productEvent.ProductDetailEvent;
+import groupProjectB.demo.model.productEvent.ProductDetailEvent;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +18,20 @@ import java.util.stream.Collectors;
 public class ProductController {
 
     private ProductService productService;
+
+    public List<Product> getProductToSort() {
+        return productService.getAllProducts()
+                .stream()
+                .map(product -> {
+                    Product product1 = new Product();
+                    product1.setName(product.getName());
+                    product1.setProductCategory(product.getProductCategory());
+                    product1.setProductDetails(product.getProductDetails());
+                    product1.setPrice(product.getPrice());
+                    product1.setId(product.getId());
+                    return product1;
+                }).collect(Collectors.toList());
+    }
 
     @Autowired
     public ProductController(ProductService productService) {
@@ -42,6 +56,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @GetMapping("/products")
     List<Product> allProductsAndDetails() {
         return productService.getAllProducts()
@@ -103,12 +118,11 @@ public class ProductController {
     }
 
     @GetMapping("/products/sort")
-    void sortByPriceEVENT() {
+    List<Product> sortByPriceEVENT() {
         ProductDetailEvent productDetailEvent = new ProductDetailEvent(this, "woogoo");
-        productDetailEvent.eventSortByPriceAsc();
+        List<Product> meow =  allProductsAndDetails();
+        return productDetailEvent.eventSortByPriceAsc(meow);
     }
-
-
 
     private static class FormBackingProduct {
         private String productCategory;
