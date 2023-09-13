@@ -3,7 +3,6 @@ package groupProjectB.demo.controller;
 
 import groupProjectB.demo.controller.dto.OrderDTO;
 import groupProjectB.demo.model.Order;
-import groupProjectB.demo.model.Product;
 import groupProjectB.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class OrderController {
@@ -30,8 +28,9 @@ public class OrderController {
         String supplier = orderDTO.getSupplier();
         Long productId = orderDTO.getProductId();
         int quantity = orderDTO.getQuantity();
-        orderService.createNewOrder(productId, supplier, quantity);
-        return ResponseEntity.ok("New order created --> productId: " + productId + ", supplier: " + supplier + ", quantity: " + quantity);
+        String status = orderDTO.getStatus();
+        orderService.createNewOrder(productId, supplier, quantity, status);
+        return ResponseEntity.ok("New order created --> productId: " + productId + ", supplier: " + supplier + ", quantity: " + quantity + ", status: " + status);
     }
 
     //updating order
@@ -43,25 +42,15 @@ public class OrderController {
             Long productId = orderDTO.getProductId();
             String supplier = orderDTO.getSupplier();
             int quantity = orderDTO.getQuantity();
-            orderService.updateOrder(orderId, productId, supplier, quantity);
-            return ResponseEntity.ok("Order updated --> orderId: " + orderId + ", productId: " + productId + ", supplier: " + supplier + ", quantity: " + quantity);
+            String status = orderDTO.getStatus();
+            orderService.updateOrder(orderId, productId, supplier, quantity, status);
+            return ResponseEntity.ok("Order updated --> orderId: " + orderId + ", productId: " + productId + ", supplier: " + supplier + ", quantity: " + quantity + ", status: " + status);
         }
     }
 
-    //getting a specific order
-//    @GetMapping("/order/{orderId}")
-//    ResponseEntity<Order> getOrder(@PathVariable long id) {
-//        Order order = orderService.findOrderById(id);
-//        if (order != null) {
-//            return new ResponseEntity<Order>(order, HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
-
     //finding an order
     @GetMapping("/order/{orderId}")
-        ResponseEntity<Order> getOrder(@PathVariable Long orderId) {
+        ResponseEntity getOrder(@PathVariable Long orderId) {
         Order order = orderService.findOrderById(orderId);
         if (order != null) {
             return new ResponseEntity<Order>(order, HttpStatus.OK);
@@ -81,10 +70,18 @@ public class OrderController {
             orderDTO.setProductId(order.getProductId());
             orderDTO.setSupplier(order.getSupplier());
             orderDTO.setQuantity(order.getQuantity());
+            orderDTO.setStatus(order.getStatus());
             orderDTOList.add(orderDTO);
         }
 
         return orderDTOList;
     }
 
+    //buying an order
+    @PutMapping("/order/buy/{orderId}")
+    ResponseEntity buyOrder(@PathVariable Long orderId) {
+        Order order = orderService.findOrderById(orderId);
+        orderService.buyOrder(orderId);
+        return new ResponseEntity<Order>(order, HttpStatus.OK);
+    }
 }
