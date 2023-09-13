@@ -57,7 +57,7 @@ curl -X POST -H "Content-Type:application/json" -d "{\"productId\":\"1\", \"supp
 ```
 ##### _MacOS/Linux:_
 ```shell
-curl --location 'http://localhost:8082/order' \ --header 'Content-Type:application/json' \ --data '{"productId" : "2", "supplier" : "FoodOrder inc", "quantity" : "3", "status" : "unpaid"}'
+curl --location 'http://localhost:8082/order' \ --header 'Content-Type:application/json' \ --data '{"productId" : "1", "supplier" : "FoodOrder inc", "quantity" : "3", "status" : "unpaid"}'
 ```
 
 <p>&nbsp</p>
@@ -91,7 +91,7 @@ curl --location --request PUT 'http://localhost:8080/customer/1/contact' \ --hea
 ### Use Case 8 - Update Product:
 ##### _Windows:_
 ```shell
-curl -i -X PUT -H "Content-Type:application/json" -d "{\"productCategory\" : \"Not Diary\", \"name\" : \"Chocolate Milk\", \"price\" : \"5.20\"}" http://localhost:8081/product/1
+curl -i -X PUT -H "Content-Type:application/json" -d "{\"productCategory\" : \"Not Diary\", \"name\" : \"Chocolate Milk\", \"price\" : \"6.00\"}" http://localhost:8081/product/1
 ```
 ##### _MacOS/Linux:_
 ```shell
@@ -132,7 +132,7 @@ curl -X PUT http://localhost:8082/order/buy/1
 
 ##### _MacOS/Linux:_
 ```shell
-curl --location --request PUT 'http://localhost:8080/order/buy/1' \ --header 'Content-Type:application/json' \ --data '{"productId" : 1, "supplier" : "FoodDelivery", "quantity" : 5, "status" : "unpaid"}' 
+curl --location --request PUT 'http://localhost:8082/order/buy/1' 
 ```
 
 <p>&nbsp</p>
