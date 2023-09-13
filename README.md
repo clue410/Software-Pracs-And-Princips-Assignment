@@ -33,7 +33,7 @@ curl -X POST -H "Content-Type:application/json" -d "{\"productCategory\" : \"Dai
 ```
 ##### _MacOS/Linux:_
 ```shell
-curl --location 'http://localhost:8081/product' \ --header 'Content-Type:application/json' \ --data '{"productCategory": "Dairy", "name": "Milk", "price": 4.20}'
+curl --location 'http://localhost:8081/product' --header 'Content-Type: application/json' --data '{"productCategory": "Dairy","name": "Milk","price": 4.20}'
 ```
 
 <p>&nbsp</p>
@@ -45,7 +45,7 @@ curl -X POST -H "Content-Type:application/json" -d "{\"description\" : \"500ml o
 ```
 ##### _MacOS/Linux:_
 ```shell
-curl --location 'http://localhost:8081/product/1/detail' \ --header 'Content-Type:application/json' \ --data '{"description": "500ml of Chocolate Milk", "comment": "Very yummy"}'
+curl --location 'http://localhost:8081/product/1/detail' --header 'Content-Type: application/json' --data '{"description": "500ml of Chocolate Milk","comment": "Very yummy"}'
 ```
 
 <p>&nbsp</p>
@@ -95,7 +95,7 @@ curl -i -X PUT -H "Content-Type:application/json" -d "{\"productCategory\" : \"N
 ```
 ##### _MacOS/Linux:_
 ```shell
-curl --location --request PUT 'http://localhost:8081/product/1' \ --header 'Content-Type:application/json' \ --data '{"productCategory": "Not Dairy", "name": "Chocolate Milk", "price": 5.20 }'
+curl --location --request PUT 'http://localhost:8081/product/1' --header 'Content-Type: application/json' --data '{"productCategory": "Not Dairy","name": "Chocolate Milk", "price": 6.00}'
 ```
 
 <p>&nbsp</p>
@@ -107,7 +107,7 @@ curl -i -X PUT -H "Content-Type:application/json" -d "{\"description\" : \"Dark 
 ```
 ##### _MacOS/Linux:_
 ```shell
-curl --location --request PUT 'http://localhost:8081/product/1/detail' \ --header 'Content-Type:application/json' \ --data '{"description": "Dark Chocolate Milk", "comment": "May Contain Almonds"}'
+curl --location --request PUT 'http://localhost:8081/product/1/detail' --header 'Content-Type: application/json' --data '{"description": "Dark Chcocolate Milk","comment": "May cointain Almonds"}'
 ```
 
 <p>&nbsp</p>
@@ -170,7 +170,7 @@ curl -X GET http://localhost:8081/product
 ```
 ##### _MacOS/Linux:_
 ```shell
-curl --location 'http://localhost:8081/product'
+curl --location 'http://localhost:8081/products'
 ```
 
 <p>&nbsp</p>
@@ -219,4 +219,16 @@ curl --location 'http://localhost:8082/order/1'
 ##### _MacOS/Linux:_
 ```shell
 
+```
+
+<p>&nbsp</p>
+
+### Use Case 19 - Get All Products Sorted By Price:
+##### _Windows:_
+```shell
+
+```
+##### _MacOS/Linux:_
+```shell
+curl --location 'http://localhost:8081/products/sort'
 ```
