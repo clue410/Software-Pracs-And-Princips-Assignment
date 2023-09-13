@@ -31,6 +31,5 @@ public class ProductDetailEvent extends ApplicationEvent {
         }
        return sortedList;
     }
-    //brhcdffdggfgdfdgd
 
 }
