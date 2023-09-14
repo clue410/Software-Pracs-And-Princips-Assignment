@@ -2,6 +2,7 @@ package groupProjectB.demo.model;
 
 import javax.persistence.Id;
 
+@Entity
 public class ProductDetail {
     @Id
     private long id;
