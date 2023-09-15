@@ -12,6 +12,7 @@ public class ProductDetail extends AbstractAggregateRoot<Product> {
 
     @Embedded
     private ProductDetailValueObject productDetailValueObject;
+
     public ProductDetail() {
 
     }
@@ -20,7 +21,6 @@ public class ProductDetail extends AbstractAggregateRoot<Product> {
         this.productDetailID = new ProductDetailID(id);
         this.productDetailValueObject = new ProductDetailValueObject(comment, description);
     }
-
 
     public ProductDetailID getProductDetailID() {
         return productDetailID;

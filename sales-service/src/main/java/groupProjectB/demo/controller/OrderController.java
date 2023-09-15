@@ -60,26 +60,6 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-    //finding all orders
-//    @GetMapping("/order")
-//    List<OrderDTO> getAllOrders() {
-//        List<Order> orders = orderService.getAllOrders();
-//        List<OrderDTO> orderDTOList = new ArrayList<>();
-//
-//        for (Order order : orders) {
-//            OrderDTO orderDTO = new OrderDTO();
-//            orderDTO.setProductId(order.getProductId());
-//            orderDTO.setSupplier(order.getSupplier());
-//            orderDTO.setQuantity(order.getQuantity());
-//            orderDTO.setStatus(order.getStatus());
-//            orderDTO.setId(order.getId());
-//            orderDTOList.add(orderDTO);
-//        }
-//
-//        return orderDTOList;
-//    }
-
     @GetMapping("/order")
     List<Order> getAllOrders() {
         return orderService.getAllOrders()

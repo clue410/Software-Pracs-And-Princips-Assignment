@@ -1,6 +1,7 @@
 package groupProjectB.demo.model;
 
 import org.springframework.data.domain.AbstractAggregateRoot;
+
 import javax.persistence.*;
 
 @Entity(name = "productEntity")

@@ -9,15 +9,14 @@ import java.util.*;
 
 import static java.util.Arrays.stream;
 
-public class ContactEvent extends ApplicationEvent{
-     private CustomerRepository customerRepository;
+public class ContactEvent extends ApplicationEvent {
+    private CustomerRepository customerRepository;
     private String eventMessage;
-
 
     public ContactEvent(Object source, String eventMessage) {
         super(source);
         this.eventMessage = eventMessage;
-        System.out.println("RAHHH Product Detail Event");
+        System.out.println("Product Detail Event");
     }
 
     public String getMessage() {
@@ -26,10 +25,10 @@ public class ContactEvent extends ApplicationEvent{
 
     public static List<Customer> eventSortByCountryAsc(List<Customer> unsortedCustomerList) {
         unsortedCustomerList.sort(Comparator.comparing(Customer::getCountry));
-        List<Customer> sortedList =  new ArrayList<Customer>();
+        List<Customer> sortedList = new ArrayList<Customer>();
         for (Customer cus : unsortedCustomerList) {
             sortedList.add(cus);
         }
-       return sortedList;
+        return sortedList;
     }
 }

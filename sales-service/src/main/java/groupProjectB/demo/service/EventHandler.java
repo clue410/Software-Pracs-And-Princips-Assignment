@@ -13,9 +13,8 @@ public class EventHandler {
         this.eventRepository = eventRepository;
     }
 
-    //buying order transactional event listener
     @TransactionalEventListener
-    public void handleBuying(OrderEvent orderEvent){
+    public void handleBuying(OrderEvent orderEvent) {
         eventRepository.save(orderEvent);
     }
 }

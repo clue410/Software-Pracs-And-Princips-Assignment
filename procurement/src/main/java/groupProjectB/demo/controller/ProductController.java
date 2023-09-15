@@ -122,8 +122,8 @@ public class ProductController {
     @GetMapping("/products/sort")
     List<Product> sortByPriceEVENT() {
         ProductDetailEvent productDetailEvent = new ProductDetailEvent(this, "woogoo");
-        List<Product> meow =  allProductsAndDetails();
-        return productDetailEvent.eventSortByPriceAsc(meow);
+        List<Product> productList =  allProductsAndDetails();
+        return productDetailEvent.eventSortByPriceAsc(productList);
     }
 
     private static class FormBackingProduct {

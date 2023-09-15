@@ -51,14 +51,12 @@ public class ProductService{
 
     public void updateProductDetails(Long productId, String comment, String description) {
         Optional<Product> productOptional = productRepository.findById(productId);
-//        if (productOptional.isPresent()) {
         Product product = productOptional.get();
         ProductDetail productDetails = productOptional.get().getProductDetails();
 
         productDetails.getProductDetailValueObject().setComment(comment);
         productDetails.getProductDetailValueObject().setDescription(description);
         productRepository.save(product);
-//        }
     }
 
     public void save(Product product) {

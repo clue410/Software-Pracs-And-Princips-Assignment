@@ -8,9 +8,7 @@ import java.io.Serializable;
 
 @Embeddable
 public class ProductDetailID implements Serializable {
-    //    @Id
     @Column(name = "productDetailId")
-//    @GeneratedValue
     private long productDetailId;
 
     public ProductDetailID() {

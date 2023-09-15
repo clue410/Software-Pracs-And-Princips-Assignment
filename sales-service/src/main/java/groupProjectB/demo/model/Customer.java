@@ -27,14 +27,6 @@ public class Customer extends AbstractAggregateRoot<Customer> {
         this.country = country;
     }
 
-//    public Customer(String companyName, String address, String country, Contact contact) {
-//        this.address = address;
-//        this.companyName = companyName;
-//        this.country = country;
-//        this.contact = contact;
-//    }
-
-
     public long getId() {
         return id;
     }

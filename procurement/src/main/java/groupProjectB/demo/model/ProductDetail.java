@@ -26,7 +26,6 @@ public class ProductDetail extends org.springframework.data.domain.AbstractAggre
         this.productDetailValueObject = new ProductDetailValueObject(comment, description);
     }
 
-
     public ProductDetailID getProductDetailID() {
         return productDetailID;
     }

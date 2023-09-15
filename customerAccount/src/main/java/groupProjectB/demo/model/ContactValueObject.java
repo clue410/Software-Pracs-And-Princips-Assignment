@@ -12,7 +12,6 @@ public class ContactValueObject {
 
     public ContactValueObject() {
     }
-
     public ContactValueObject(String name, String phone, String email, String position) {
         this.name = name;
         this.phone = phone;

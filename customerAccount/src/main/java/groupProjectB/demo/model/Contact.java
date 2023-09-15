@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Embeddable
 public class Contact extends org.springframework.data.domain.AbstractAggregateRoot<Customer> {
 
-private ContactID contactID; // Aggregate Identifier
+    private ContactID contactID; // Aggregate Identifier
 
     @Embedded
     private ContactValueObject contactValueObject;
@@ -13,12 +13,10 @@ private ContactID contactID; // Aggregate Identifier
     public Contact() {
 
     }
-
-    public Contact(long id,String name, String phone, String email, String positoin) {
+    public Contact(long id, String name, String phone, String email, String positoin) {
         this.contactID = new ContactID(id);
-        this.contactValueObject = new ContactValueObject(name,phone,email,positoin);
+        this.contactValueObject = new ContactValueObject(name, phone, email, positoin);
     }
-
 
     public ContactID getContactID() {
         return contactID;

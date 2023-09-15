@@ -15,7 +15,7 @@ public class ContactEventPublisher {
    public void publishContactEvent(final String message){
        System.out.println("Contact Event Published!");
        ContactEvent ContactEvent = new ContactEvent(this, message);
-       ContactEventPublisher.publishContactEvent("Message Message woohoo");
-       System.out.println("RAHHH Contact Event Publisher");
+       ContactEventPublisher.publishContactEvent("Contact Event Published!");
+       System.out.println("Contact Event Publisher");
    }
 }
