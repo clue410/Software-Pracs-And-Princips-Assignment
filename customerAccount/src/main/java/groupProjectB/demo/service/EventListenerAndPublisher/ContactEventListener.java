@@ -3,7 +3,7 @@ import groupProjectB.demo.model.CustomerEvent.ContactEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-@Component("bruh")
+@Component("contactEventListener")
 public class ContactEventListener implements ApplicationListener<ContactEvent> {
     @Override
     public void onApplicationEvent(ContactEvent event) {
