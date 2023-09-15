@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 @Embeddable
 public class ContactID implements Serializable {
-    //    @Id
     @Column(name = "contactId")
 //    @GeneratedValue
     private long contactId;

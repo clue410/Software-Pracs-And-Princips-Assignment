@@ -3,7 +3,6 @@ package groupProjectB.demo.model;
 
 import groupProjectB.demo.model.event.OrderEvent;
 import org.springframework.data.domain.AbstractAggregateRoot;
-
 import javax.persistence.*;
 
 @Entity(name = "orderEntity")

@@ -13,6 +13,8 @@ import java.util.List;
 
 @Service
 public class OrderService {
+    public static final String PRODUCT_URL = "http://localhost:8081/product/";
+    public static final String CUSTOMER_URL = "http://localhost:8080/customer/";
     private final OrderRepository orderRepository;
     private final RestTemplate restTemplate;
     private final ApplicationEventPublisher applicationEventPublisher;
@@ -39,12 +41,10 @@ public class OrderService {
 
     //creating order
     public long createNewOrder(Long productId, String supplier, int quantity, String status, Long customerId) {
-        String productUrl = "http://localhost:8081/product/";
-        String customerUrl = "http://localhost:8080/customer/";
         Order order = new Order();
         order.setSupplier(supplier);
-        order.setProductId(restTemplate.getForObject(productUrl + productId, Product.class).getId());
-        order.setCustomerId(restTemplate.getForObject(customerUrl + customerId, Customer.class).getId());
+        order.setProductId(restTemplate.getForObject(PRODUCT_URL + productId, Product.class).getId());
+        order.setCustomerId(restTemplate.getForObject(CUSTOMER_URL + customerId, Customer.class).getId());
         order.setQuantity(quantity);
         order.setStatus(status);
         orderRepository.save(order);
@@ -54,10 +54,8 @@ public class OrderService {
     //updating order
     public void updateOrder(Long id, Long productId, String supplier, int quantity, String status, Long customerId) {
         Order currentOrder = orderRepository.findById(id).get();
-        String productUrl = "http://localhost:8081/product/";
-        String customerUrl = "http://localhost:8080/customer/";
-        currentOrder.setProductId(restTemplate.getForObject(productUrl + productId, Product.class).getId());
-        currentOrder.setCustomerId(restTemplate.getForObject(customerUrl + customerId, Customer.class).getId());
+        currentOrder.setProductId(restTemplate.getForObject(PRODUCT_URL + productId, Product.class).getId());
+        currentOrder.setCustomerId(restTemplate.getForObject(CUSTOMER_URL + customerId, Customer.class).getId());
         currentOrder.setSupplier(supplier);
         currentOrder.setQuantity(quantity);
         currentOrder.setStatus(status);
