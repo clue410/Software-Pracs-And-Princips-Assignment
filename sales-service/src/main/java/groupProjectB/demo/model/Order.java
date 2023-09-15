@@ -3,6 +3,7 @@ package groupProjectB.demo.model;
 
 import groupProjectB.demo.model.event.OrderEvent;
 import org.springframework.data.domain.AbstractAggregateRoot;
+
 import javax.persistence.*;
 
 @Entity(name = "orderEntity")
@@ -17,7 +18,8 @@ public class Order extends AbstractAggregateRoot<Order> {
     private String status;
     private long customerId;
 
-    public Order() {    }
+    public Order() {
+    }
 
     public Long getId() {
         return id;
@@ -80,7 +82,6 @@ public class Order extends AbstractAggregateRoot<Order> {
 
     public void buy(long orderId) {
         this.setStatus("paid");
-
         OrderEvent orderEvent = new OrderEvent();
         orderEvent.setEventName("buy");
         orderEvent.setQuantity(this.getQuantity());
@@ -89,7 +90,6 @@ public class Order extends AbstractAggregateRoot<Order> {
         orderEvent.setOrderId(orderId);
         orderEvent.setStatus(this.getStatus());
         orderEvent.setCustomerId(this.getCustomerId());
-
         registerEvent(orderEvent);
     }
 }

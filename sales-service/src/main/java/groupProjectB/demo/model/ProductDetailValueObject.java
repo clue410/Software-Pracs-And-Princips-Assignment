@@ -1,6 +1,7 @@
 package groupProjectB.demo.model;
 
 import javax.persistence.Embeddable;
+
 @Embeddable
 public class ProductDetailValueObject {
     private String comment;

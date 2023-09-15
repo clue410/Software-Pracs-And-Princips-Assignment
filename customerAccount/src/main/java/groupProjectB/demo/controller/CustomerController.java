@@ -31,13 +31,11 @@ public class CustomerController {
                 }).collect(Collectors.toList());
     }
 
-
     @Autowired
     public CustomerController(CustomerService cusService) {
         this.cusService = cusService;
     }
 
-    //works
     @PostMapping("/customer")
     ResponseEntity<String> createCustomer(@RequestBody FormBackingCustomer customerForm) {
         System.out.println(customerForm);
@@ -45,7 +43,6 @@ public class CustomerController {
         return new ResponseEntity<>("new customer created -->  company Name:" + customerForm.companyName + ",address: " + customerForm.address + ",country: " + customerForm.country, HttpStatus.OK);
     }
 
-    //works
     @PutMapping("/customer/{id}")
     ResponseEntity<String> updateCustomer(@PathVariable Long id, @RequestBody FormBackingCustomer customerForm) {
         Customer customer = cusService.findCus(id);
@@ -59,7 +56,6 @@ public class CustomerController {
     }
 
 
-    //works
     @GetMapping("/customer/{id}")
     ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
         Customer customer = cusService.findCus(id);
@@ -83,6 +79,7 @@ public class CustomerController {
             return new ResponseEntity<>("Contact created for " + con.getContactValueObject().getName() + "(" + customer.getId() + ") --> phone: " + contactForm.phone + ",email: " + contactForm.email + ",position: " + contactForm.position, HttpStatus.OK);
         }
     }
+
     @PutMapping("/customer/{id}/contact")
     ResponseEntity<String> updateContactDetail(@PathVariable Long id, @RequestBody FormBackingContact contactForm) {
         Customer customer = cusService.findCus(id);
@@ -108,7 +105,6 @@ public class CustomerController {
         }
     }
 
-    //works
     @GetMapping("/customers")
     List<Customer> allCustomers() {
         return cusService.getAllCustomers()
@@ -124,14 +120,12 @@ public class CustomerController {
                 }).collect(Collectors.toList());
     }
 
-//works
     @GetMapping("/customers/sort")
     List<Customer> sortByCountryEVENT() {
         ContactEvent contactEventEvent = new ContactEvent(this, "woogoo");
-        List<Customer> cus =  allCustomers();
+        List<Customer> cus = allCustomers();
         return ContactEvent.eventSortByCountryAsc(cus);
     }
-
 
 
     private static class FormBackingCustomer {
@@ -224,6 +218,4 @@ public class CustomerController {
         }
 
     }
-
-
 }

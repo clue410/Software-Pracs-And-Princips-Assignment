@@ -5,7 +5,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 import javax.persistence.*;
 
 @Entity(name = "customerEntity")
-public class Customer  extends AbstractAggregateRoot<Customer> {
+public class Customer extends AbstractAggregateRoot<Customer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +13,6 @@ public class Customer  extends AbstractAggregateRoot<Customer> {
     private String companyName;
     private String address;
     private String country;
-//    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Contact contact;
 
@@ -26,14 +25,6 @@ public class Customer  extends AbstractAggregateRoot<Customer> {
         this.address = address;
         this.country = country;
     }
-
-//    public Customer(String companyName, String address, String country, Contact contact) {
-//        this.address = address;
-//        this.companyName = companyName;
-//        this.country = country;
-//        this.contact = contact;
-//    }
-
 
     public long getId() {
         return id;

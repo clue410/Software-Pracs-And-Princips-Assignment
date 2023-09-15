@@ -16,7 +16,7 @@ public class ProductDetailEvent extends ApplicationEvent {
     public ProductDetailEvent(Object source, String eventMessage) {
         super(source);
         this.eventMessage = eventMessage;
-        System.out.println("RAHHH Product Detail Event");
+        System.out.println("Product Detail Event");
     }
 
     public String getMessage() {

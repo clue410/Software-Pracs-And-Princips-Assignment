@@ -13,7 +13,6 @@ public class Product extends AbstractAggregateRoot<Product> {
     private String name;
     private double price;
 
-//    @OneToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private ProductDetail productDetails;
 

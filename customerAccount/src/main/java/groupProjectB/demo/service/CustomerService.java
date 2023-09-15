@@ -26,7 +26,6 @@ public class CustomerService {
         return null;
     }
 
-
     //saving customer
     public void save(Customer cus) {
         cusRepo.save(cus);
@@ -44,15 +43,11 @@ public class CustomerService {
 
     //updating customer
     public void updateCustomer(long id, String companyName, String address, String country) {
-
         Customer cus = cusRepo.findById(id).get();
-
         cus.setAddress(address);
         cus.setCompanyName(companyName);
         cus.setCountry(country);
-
         cusRepo.save(cus);
-
     }
 
     //finding contact
@@ -96,6 +91,4 @@ public class CustomerService {
     public List<Customer> getAllCustomers() {
         return cusRepo.findAll();
     }
-
-
 }

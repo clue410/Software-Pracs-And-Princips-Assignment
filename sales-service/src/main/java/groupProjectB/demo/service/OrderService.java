@@ -19,7 +19,7 @@ public class OrderService {
     private final RestTemplate restTemplate;
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public OrderService(OrderRepository orderRepository, RestTemplate restTemplate, ApplicationEventPublisher applicationEventPublisher){
+    public OrderService(OrderRepository orderRepository, RestTemplate restTemplate, ApplicationEventPublisher applicationEventPublisher) {
         this.orderRepository = orderRepository;
         this.restTemplate = restTemplate;
         this.applicationEventPublisher = applicationEventPublisher;
@@ -35,7 +35,7 @@ public class OrderService {
     }
 
     //finding all orders
-    public List<Order> getAllOrders(){
+    public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
