@@ -143,9 +143,9 @@ public class ProductController {
     }
 
     @GetMapping(value = "/kafkaTest")
-    public String producer(@RequestParam("message") String message) {
-        productKafka.send(message);
-        return "Sent message to Product Kafka ";
+    public String producer(@RequestParam("message") Product product) {
+        productKafka.send(product);
+        return "Sent product to Product Kafka ";
     }
 
     private static class FormBackingProduct {
