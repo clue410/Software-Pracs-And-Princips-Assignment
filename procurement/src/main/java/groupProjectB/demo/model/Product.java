@@ -12,6 +12,7 @@ public class Product extends AbstractAggregateRoot<Product> {
     private String productCategory;
     private String name;
     private double price;
+    private int stock;
 
     @PrimaryKeyJoinColumn
     private ProductDetail productDetails;
@@ -19,10 +20,11 @@ public class Product extends AbstractAggregateRoot<Product> {
     public Product() {
     }
 
-    public Product(String productCategory, String name, double price) {
+    public Product(String productCategory, String name, double price, int stock) {
         this.productCategory = productCategory;
         this.name = name;
         this.price = price;
+        this.stock = stock;
     }
 
     public long getId() {
@@ -56,6 +58,10 @@ public class Product extends AbstractAggregateRoot<Product> {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public int getStock() {return stock;}
+
+    public void setStock(int stock) {this.stock = stock;}
 
     public ProductDetail getProductDetails() {
         return productDetails;

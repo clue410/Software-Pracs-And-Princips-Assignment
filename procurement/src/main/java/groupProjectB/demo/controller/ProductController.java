@@ -6,6 +6,7 @@ import groupProjectB.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import groupProjectB.demo.service.ProductKafka;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class ProductController {
 
     private ProductService productService;
+    private ProductKafka productKafka;
 
     public List<Product> getProductToSort() {
         return productService.getAllProducts()
@@ -41,8 +43,8 @@ public class ProductController {
     @PostMapping("/product")
     ResponseEntity<String> createProduct(@RequestBody FormBackingProduct productForm) {
         System.out.println(productForm);
-        productService.createNewProduct(productForm.productCategory, productForm.name, productForm.price);
-        return new ResponseEntity<>("new product created --> category: " + productForm.productCategory + ", name: " + productForm.name + ", price: " + productForm.price, HttpStatus.OK);
+        productService.createNewProduct(productForm.productCategory, productForm.name, productForm.price, productForm.stock);
+        return new ResponseEntity<>("new product created --> category: " + productForm.productCategory + ", name: " + productForm.name + ", price: " + productForm.price + ", stock: " + productForm.stock, HttpStatus.OK);
     }
 
     @PutMapping("/product/{id}")
@@ -50,8 +52,8 @@ public class ProductController {
         Product product = productService.getById(id);
         if (product != null) {
             String oldName = product.getName();
-            productService.updateProduct(id, productForm.productCategory, productForm.name, productForm.price);
-            return new ResponseEntity<>("updated product:" + oldName + " --> " + productForm.name + "|" + "category: " + productForm.productCategory + ", name: " + productForm.productCategory + ", price: " + productForm.price, HttpStatus.OK);
+            productService.updateProduct(id, productForm.productCategory, productForm.name, productForm.price, productForm.stock);
+            return new ResponseEntity<>("updated product:" + oldName + " --> " + productForm.name + "|" + "category: " + productForm.productCategory + ", name: " + productForm.productCategory + ", price: " + productForm.price + ", stock: " + productForm.stock, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -67,6 +69,7 @@ public class ProductController {
                     product1.setProductCategory(product.getProductCategory());
                     product1.setProductDetails(product.getProductDetails());
                     product1.setPrice(product.getPrice());
+                    product1.setStock(product.getStock());
                     product1.setId(product.getId());
                     return product1;
                 }).collect(Collectors.toList());
@@ -82,9 +85,20 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/product/{id}/stock")
+    ResponseEntity<Integer> getProductStock(@PathVariable Long id) {
+        Product product = productService.getById(id);
+        if (product.getStock() <= 0) {
+            return new ResponseEntity<>(product.getStock(), HttpStatus.NOT_ACCEPTABLE);
+        } else {
+            return new ResponseEntity<>(product.getStock(), HttpStatus.OK);
+        }
+    }
+
     //works
     @PostMapping("/product/{productId}/detail")
-    ResponseEntity<String> createProductDetail(@PathVariable Long productId, @RequestBody FormBackingProductDetail productDetailForm) {
+    ResponseEntity<String> createProductDetail(@PathVariable Long productId, @RequestBody FormBackingProductDetail
+            productDetailForm) {
         Product product = productService.getById(productId);
         if (product.getProductDetails() != null) {
             return new ResponseEntity<>("Product " + product.getName() + "(" + product.getId() + ")" + " already has created details", HttpStatus.BAD_REQUEST);
@@ -98,7 +112,8 @@ public class ProductController {
 
     //works
     @PutMapping("/product/{productId}/detail")
-    ResponseEntity<String> updateProductDetail(@PathVariable Long productId, @RequestBody FormBackingProductDetail productDetailForm) {
+    ResponseEntity<String> updateProductDetail(@PathVariable Long productId, @RequestBody FormBackingProductDetail
+            productDetailForm) {
         Product product = productService.getById(productId);
         if (product.getProductDetails() != null) {
             productService.updateProductDetails(productId, productDetailForm.comment, productDetailForm.description);
@@ -108,7 +123,7 @@ public class ProductController {
         }
     }
 
-//works
+    //works
     @GetMapping("/product/{id}/detail")
     ResponseEntity<Product> getProductDetail(@PathVariable Long id) {
         Product product = productService.getById(id);
@@ -122,21 +137,30 @@ public class ProductController {
     @GetMapping("/products/sort")
     List<Product> sortByPriceEVENT() {
         ProductDetailEvent productDetailEvent = new ProductDetailEvent(this, "woogoo");
-        List<Product> productList =  allProductsAndDetails();
+        List<Product> productList = allProductsAndDetails();
+//        List<Product> productList = allProductsAndDetails();
         return productDetailEvent.eventSortByPriceAsc(productList);
+    }
+
+    @GetMapping(value = "/kafkaTest")
+    public String producer(@RequestParam("message") String message) {
+        productKafka.send(message);
+        return "Sent message to Product Kafka ";
     }
 
     private static class FormBackingProduct {
         private String productCategory;
         private String name;
         private double price;
+        private int stock;
 
         @Override
         public String toString() {
             return "ProductForm{" +
                     "productCategory='" + productCategory + '\'' +
                     ", name='" + name + '\'' +
-                    ", price=" + price +
+                    ", price=" + price + '\'' +
+                    ", stock=" + stock +
                     '}';
         }
 
@@ -154,6 +178,14 @@ public class ProductController {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public int getStock() {
+            return stock;
+        }
+
+        public void setStock(int stock) {
+            this.stock = stock;
         }
 
         public double getPrice() {
@@ -195,3 +227,4 @@ public class ProductController {
         }
     }
 }
+

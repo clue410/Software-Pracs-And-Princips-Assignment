@@ -31,18 +31,19 @@ public class ProductService{
         return null;
     }
 
-    public long createNewProduct(String category, String name, double price) {
-        Product product = new Product(category, name, price);
+    public long createNewProduct(String category, String name, double price, int stock) {
+        Product product = new Product(category, name, price, stock);
         Product savedProduct = productRepository.save(product);
         return savedProduct.getId();
     }
 
-    public void updateProduct(Long id, String productCategory, String name, double price) {
+    public void updateProduct(Long id, String productCategory, String name, double price, int stock) {
         Optional<Product> productOptional = productRepository.findById(id);
         Product product = productOptional.get();
         product.setProductCategory(productCategory);
         product.setName(name);
         product.setPrice(price);
+        product.setStock(stock);
         productRepository.save(product);
     }
     public List<Product> getAllProducts(){
